@@ -1,0 +1,70 @@
+---
+import Section from "./Section.astro";
+import FutureLink from "./FutureLink.astro";
+import { NOTE } from "../data/site";
+const rows = [
+  { t: "Оригінальні запчастини", s: "VW, Audi, Skoda, Porsche, Mercedes, Land Rover, BMW, Mini — куплені в сервісі", a: "1 рік", b: "10 000 км" },
+  { t: "Інші запчастини", s: "", a: "6 міс.", b: "10 000 км" },
+  { t: "Роботи", s: "", a: "30 днів", b: "" },
+  { t: "Стійки", s: "", a: "до 24 міс.", b: "30 000 км" },
+];
+---
+<Section id="conditions" rec="UX-R012" class="cond">
+  <div class="container cond__grid">
+    <div class="cond__warr">
+      <h2>Гарантія, підмінне авто, оплата частинами</h2>
+      <table class="gt">
+        <caption class="visually-hidden">Гарантійні строки</caption>
+        <tbody>
+          {rows.map((r, i) => (
+            <tr>
+              <th scope="row"><span class="gt__t">{r.t}</span>{r.s && <span class="gt__s muted">{r.s}</span>}</th>
+              <td><span class="gt__v num" data-reveal style={`--reveal-delay:${i * 80}ms`}>{r.a}{r.b && <><span class="gt__or"> або </span>{r.b}</>}</span></td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+      <p class="cond__fl"><FutureLink note={NOTE}>Гарантії — докладно</FutureLink></p>
+    </div>
+    <div class="cond__side">
+      <h3>Підмінне авто</h3>
+      <p>Підмінне авто VW e-Golf на час ремонту. Умови: посвідчення водія, договір, вік 20–70 років.</p>
+      <FutureLink note={NOTE}>Підмінне авто — докладно</FutureLink>
+      <h3>Оплата частинами</h3>
+      <p>Без переплат від 5 000 грн: 3, 5 або 7 платежів залежно від суми. ПриватБанк, monobank, А-Банк.</p>
+      <FutureLink note={NOTE}>Оплата частинами — докладно</FutureLink>
+      <h3>Також</h3>
+      <ul class="cond__list">
+        <li>Приймаємо оплату криптовалютою; деталі — у консультанта.</li>
+        <li>Запчастини в наявності.</li>
+        <li>Зона очікування з кавою і Wi-Fi.</li>
+      </ul>
+    </div>
+  </div>
+</Section>
+<style>
+  :global(.cond) { padding: var(--s-9) 0 var(--s-8); }
+  .cond__grid { display: grid; gap: var(--s-8); }
+  .gt { width: 100%; border-collapse: collapse; margin-top: var(--s-7); }
+  .gt tr { display: grid; gap: var(--s-2); padding: var(--s-5) 0; border-top: 1px solid var(--color-line); }
+  .gt tr:last-child { border-bottom: 1px solid var(--color-line); }
+  .gt th[scope="row"] { text-align: left; font-weight: 600; display: grid; gap: var(--s-1); }
+  .gt__s { font-weight: 400; font-size: var(--fs-small); max-width: 46ch; }
+  .gt td { padding: 0; }
+  .gt__v { display: block; font-size: var(--fs-big); line-height: 1.1; }
+  .gt__or { font-size: var(--fs-small); font-family: var(--font-body); color: var(--color-muted); }
+  .cond__fl { margin-top: var(--s-4); }
+  .cond__side { display: grid; gap: var(--s-3); align-content: start; justify-items: start; }
+  .cond__side h3 { margin-top: var(--s-5); }
+  .cond__side h3:first-child { margin-top: 0; }
+  .cond__list { display: grid; gap: var(--s-2); list-style: disc; padding-left: 1.1em; }
+  @media (min-width: 1024px) {
+    :global(.cond) { padding: var(--s-10) 0 var(--s-9); }
+    .cond__grid { grid-template-columns: repeat(12, 1fr); column-gap: var(--s-5); }
+    .cond__warr { grid-column: 1 / span 7; }
+    .cond__side { grid-column: 9 / span 4; padding-top: 140px; }
+    .gt tr { grid-template-columns: 1fr auto; align-items: baseline; gap: var(--s-6); }
+    .gt td { text-align: right; }
+    .gt__v { font-size: 40px; }
+  }
+</style>

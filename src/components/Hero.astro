@@ -1,0 +1,46 @@
+---
+import Section from "./Section.astro";
+import { PHONE_TEL, PHONE_TEXT, TG, BRANDS } from "../data/site";
+const vag = BRANDS.filter((b) => b.vag);
+---
+<Section id="hero" rec="UX-R001,UX-R002,SEO-R004,G-R001" class="hero">
+  <div class="container hero__grid">
+    <div class="hero__main">
+      <h1>СТО у Львові зі спеціалізацією у VAG</h1>
+      <p class="hero__lead">Вул. Хлібна, 4. Щодня з 8:00 до 19:00.</p>
+      <div class="hero__act">
+        <a class="btn btn--primary" href={PHONE_TEL}>Подзвонити <span class="num">{PHONE_TEXT}</span></a>
+        <a class="btn btn--outline" href={TG} target="_blank" rel="noopener noreferrer">Записатися в Telegram</a>
+      </div>
+    </div>
+    <nav class="hero__brands" aria-label="Марки VAG">
+      <p class="hero__brands-t muted">Марки VAG</p>
+      <ul>
+        {vag.map((b) => <li><a class="num link" href="#brands" data-pick={b.id}>{b.name}</a></li>)}
+      </ul>
+    </nav>
+  </div>
+</Section>
+<style>
+  :global(.hero) { padding: var(--s-7) 0 var(--s-9); }
+  .hero__grid { display: grid; gap: var(--s-6); }
+  .hero__lead { font-size: var(--fs-lead); margin-top: var(--s-5); }
+  .hero__act { display: grid; gap: var(--s-3); margin-top: var(--s-6); }
+  .hero__brands-t { font-size: var(--fs-small); margin-bottom: var(--s-2); }
+  .hero__brands ul { display: flex; flex-wrap: wrap; gap: var(--s-2) var(--s-5); }
+  .hero__brands a { font-size: var(--fs-h3); color: var(--color-muted); }
+  .hero__brands a:hover { color: var(--color-text); }
+  @media (min-width: 768px) {
+    :global(.hero) { padding-top: var(--s-9); }
+    .hero__act { display: flex; flex-wrap: wrap; }
+  }
+  @media (min-width: 1024px) {
+    :global(.hero) { padding: var(--s-9) 0 var(--s-9); min-height: calc(100svh - var(--header-h)); display: flex; align-items: center; }
+    .hero__grid { width: min(100% - 2 * var(--space), var(--container)); }
+    .hero__grid { grid-template-columns: repeat(12, 1fr); column-gap: var(--s-5); align-items: end; }
+    .hero__main { grid-column: 1 / span 8; }
+    .hero__brands { grid-column: 10 / span 3; padding-bottom: var(--s-2); }
+    .hero__brands ul { display: grid; gap: var(--s-3); }
+    .hero__lead { margin-top: var(--s-6); }
+  }
+</style>

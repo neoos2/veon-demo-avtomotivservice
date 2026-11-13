@@ -1,0 +1,37 @@
+/* Hallmark · shape: split-asymmetric with colour bands · genre: modern-minimal · theme: custom · job: book · idea: "Кожна марка — за своїм стандартом" · vibe: "холодний метал, норма DIN, мідь"
+ * paper: #E4E7E9 · accent: #9A4A2A · display: Gidole · body: Akt · hero: H1 і адреса з годинами ліворуч, стовпець марок VAG праворуч, без фото · nav: solid graphite bar with anchors, phone and Telegram · footer: graphite with logo, contacts and future links · imagery: none · signature: переключатель марки з її софтом і гарантією, фінальний екран міддю з номером
+ * axes: cool-aluminium/DIN-grotesque/copper · posture: committed · contrast: pass · fold: pass · v2.0.0 */
+/* Hallmark · waive 79 · 1440px: ~186px повітря під hero (design/review/hallmark-check.md) · якісних фото клієнта немає, концепція типографська «технічна норма»; без min-height hero з'являються 2 REFLEX (44c і 79), тож повітря залишаємо як свідоме поле, наступна секція починається одразу під першим екраном */
+/* Hallmark · pre-emit critique: P4 H4 E3 S4 R4 V4 · weakest: E, no photography by design; weight carried by type scale and colour bands */
+/* Client design tokens from design/concept.md (veon-concept). */
+:root {
+  --color-bg: #E4E7E9;
+  --color-surface: #F3F4F5;
+  --color-text: #1B1F22;
+  --color-muted: #4D555B;
+  --color-brand: #B65F3B;
+  --color-accent: #9A4A2A;
+  --color-on-accent: #F3F4F5;
+  --color-band: #20262A;
+  --color-on-band: #E4E7E9;
+  --color-on-band-muted: #A7B0B5;
+  --color-line: #6E777D;
+  --color-band-line: #343C42;
+  --color-accent-hover: #7F3A1F;
+  --color-accent-ink: #F3F4F5;
+  --font-display: Gidole, "Gidole Fallback", system-ui, sans-serif;
+  --font-body: Akt, "Akt Fallback", system-ui, sans-serif;
+  --radius: 2px;
+  --ease-out: cubic-bezier(.2, .7, .2, 1);
+  --dur: 600ms;
+  --reveal-y: 24px;
+  --space: 20px;
+  --container: 1360px;
+  --header-h: 56px;
+  --bar-h: 72px;
+  --s-1: 4px; --s-2: 8px; --s-3: 12px; --s-4: 16px; --s-5: 24px; --s-6: 32px; --s-7: 48px; --s-8: 64px; --s-9: 96px; --s-10: 128px; --s-11: 160px;
+  --fs-h1: 44px; --fs-big: 40px; --fs-h2: 32px; --fs-h3: 24px; --fs-lead: 18px; --fs-text: 16px; --fs-small: 15px;
+}
+@media (min-width: 768px) { :root { --space: 32px; --header-h: 64px; --reveal-y: 24px; } }
+@media (min-width: 1024px) { :root { --space: 64px; --fs-h1: clamp(72px, 7.2vw, 104px); --fs-big: 40px; --fs-h2: 52px; --fs-h3: 32px; --fs-lead: 22px; --fs-text: 17px; } }
+@media (max-width: 767px) { :root { --dur: 400ms; --reveal-y: 12px; } }

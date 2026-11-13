@@ -1,0 +1,68 @@
+---
+import Section from "./Section.astro";
+import FutureLink from "./FutureLink.astro";
+import { PHONE_TEL, NOTE } from "../data/site";
+const nodes = [
+  { t: "Ходова", w: "Вібростенд, 3D розвал-сходження, амортизатори, сайлентблоки, подушки двигуна" },
+  { t: "Гальма", w: "Гальмівні диски, колодки, проточка дисків" },
+  { t: "Двигун і трансмісія", w: "Заміна мастила, ланцюг і пасок ГРМ, заміна мастила в АКПП" },
+  { t: "Електрика і кондиціонер", w: "Автоелектрик, обслуговування кондиціонера" },
+  { t: "Впускний колектор", w: "Чищення впускного колектора" },
+];
+---
+<Section id="services" rec="UX-R010" class="svc">
+  <div class="container">
+    <h2>Послуги за вузлами авто</h2>
+    <div class="svc__lead" data-reveal>
+      <div class="svc__lead-t">
+        <h3>Комплексна діагностика</h3>
+        <p class="muted">Починайте з неї: спершу з'ясовуємо причину, потім обираємо роботи.</p>
+      </div>
+      <p class="svc__price num" aria-label="Ціна 700 гривень">700 грн</p>
+      <a class="btn btn--primary svc__btn" href={PHONE_TEL}>Записатися на діагностику</a>
+    </div>
+    <div class="svc__nodes">
+      {nodes.map((n, i) => (
+        <details class="node" open data-n={i}>
+          <summary class="node__t"><h3>{n.t}</h3></summary>
+          <div class="node__b">
+            <p>{n.w}</p>
+            <FutureLink note={NOTE}>Сторінка послуги</FutureLink>
+          </div>
+        </details>
+      ))}
+    </div>
+    <script is:inline>(function(){var m=matchMedia("(max-width:1023px)");function s(){document.querySelectorAll(".node").forEach(function(d){d.open=!m.matches;var sm=d.querySelector("summary");if(m.matches)sm.removeAttribute("tabindex");else sm.setAttribute("tabindex","-1")})}s();m.addEventListener("change",s)})()</script>
+    <p class="svc__also">Також робимо: підвіска, рульове, МКПП, турбіни, техрідини, фари.</p>
+  </div>
+</Section>
+<style>
+  :global(.svc) { padding: var(--s-9) 0 var(--s-9); }
+  :global(.svc) h2 { max-width: 14ch; text-wrap: balance; }
+  .svc__lead { margin-top: var(--s-7); display: grid; gap: var(--s-4); align-items: center; padding: var(--s-6) 0; border-block: 2px solid var(--color-text); }
+  .svc__price { font-size: calc(var(--fs-h1) * .7); line-height: 1; color: var(--color-brand); }
+  .svc__btn { white-space: nowrap; }
+  .svc__nodes { margin-top: var(--s-6); }
+  .node { border-bottom: 1px solid var(--color-line); }
+  .node__t { list-style: none; cursor: pointer; display: flex; justify-content: space-between; align-items: center; min-height: 64px; padding: var(--s-3) 0; }
+  .node__t::-webkit-details-marker { display: none; }
+  .node__t::after { content: "+"; font: 400 28px/1 var(--font-display); color: var(--color-muted); }
+  .node[open] .node__t::after { content: "–"; }
+  .node__b { padding: 0 0 var(--s-5); display: grid; gap: var(--s-3); justify-items: start; }
+  .node[open] .node__b { animation: nodeIn 220ms var(--ease-out); }
+  @keyframes nodeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+  .svc__also { margin-top: var(--s-6); color: var(--color-muted); }
+  @media (min-width: 1024px) {
+    :global(.svc) { padding: var(--s-10) 0; }
+    .svc__lead { grid-template-columns: 1fr auto auto; gap: var(--s-7); padding: var(--s-7) 0; }
+    .svc__btn { white-space: nowrap; }
+  .svc__nodes { margin-top: var(--s-8); }
+    .node { display: flow-root; padding: var(--s-6) 0 var(--s-6); }
+    .node__t { float: left; width: calc(5 / 12 * 100%); min-height: 0; padding: 0; pointer-events: none; cursor: default; }
+    .node__t::after { display: none; }
+    .node__b { margin-left: calc(6 / 12 * 100% + 12px); padding: 4px 0 0; grid-template-columns: 1fr auto; align-items: start; gap: var(--s-6); }
+    .node__b p { font-size: var(--fs-text); max-width: 40ch; }
+    .node:nth-child(3) .node__t h3, .node:nth-child(1) .node__t h3 { font-size: 40px; }
+  }
+  @media (prefers-reduced-motion: reduce) { .node[open] .node__b { animation: none; } }
+</style>

@@ -1,0 +1,29 @@
+---
+import FutureLink from "./FutureLink.astro";
+import { PHONE_TEL, PHONE_TEXT, TG, SOCIALS, NOTE } from "../data/site";
+---
+<footer class="ftr on-dark">
+  <div class="container ftr__in">
+    <a class="ftr__logo" href="#top" aria-label="Avtomotiv Service, на початок сторінки"><img src="/logo-footer.svg" width="1299" height="182" alt="Avtomotiv Service" /></a>
+    <div class="ftr__col">
+      <a class="num ftr__tel" href={PHONE_TEL}>{PHONE_TEXT}</a>
+      <a class="link" href={TG} target="_blank" rel="noopener noreferrer">Telegram-бот: запис та історія</a>
+      <p class="muted">Вул. Хлібна, 4, Львів · щодня 8:00–19:00</p>
+    </div>
+    <ul class="ftr__col" aria-label="Соцмережі">
+      {SOCIALS.map((s) => <li><a class="link" href={s.url} target="_blank" rel="noopener noreferrer">{s.name}</a></li>)}
+    </ul>
+    <ul class="ftr__col" aria-label="Розділи мережі">
+      {["Про мережу", "Гарантії", "Вакансії", "Інші міста"].map((t) => <li><FutureLink note={NOTE}>{t}</FutureLink></li>)}
+    </ul>
+  </div>
+</footer>
+<style>
+  .ftr { padding: var(--s-8) 0 var(--s-8); border-top: 1px solid var(--color-band-line); }
+  .ftr__in { display: grid; gap: var(--s-6); }
+  .ftr__logo { display: block; width: min(260px, 70%); line-height: 0; }
+  .ftr__col { display: grid; gap: var(--s-3); align-content: start; justify-items: start; }
+  .ftr__tel { font-size: var(--fs-h3); text-decoration: none; }
+  @media (min-width: 768px) { .ftr__in { grid-template-columns: repeat(2, minmax(0, 1fr)); } .ftr__logo { grid-column: 1 / -1; } }
+  @media (min-width: 1024px) { .ftr__in { grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr) minmax(0, 1fr); column-gap: var(--s-6); } .ftr__logo { grid-column: 1 / -1; } .ftr__in > .ftr__col:nth-of-type(1){ } }
+</style>

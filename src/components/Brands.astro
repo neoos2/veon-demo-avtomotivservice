@@ -1,0 +1,86 @@
+---
+import Section from "./Section.astro";
+import FutureLink from "./FutureLink.astro";
+import { BRANDS, NOTE } from "../data/site";
+const vag = BRANDS.filter((b) => b.vag);
+const other = BRANDS.filter((b) => !b.vag);
+---
+<Section id="brands" rec="UX-R011" class="brands on-dark">
+  <div class="container">
+    <h2>Марки: VAG — наша спеціалізація</h2>
+    <div class="brands__grid">
+      <div class="tabs" role="tablist" aria-label="Марка авто" aria-orientation="vertical">
+        <p class="tabs__g muted" aria-hidden="true">Марки VAG</p>
+        {vag.map((b, i) => <button class="tab num tab--big" role="tab" type="button" id={`tab-${b.id}`} aria-controls={`panel-${b.id}`} aria-selected={i === 0 ? "true" : "false"} tabindex={i === 0 ? 0 : -1}>{b.name}</button>)}
+        <p class="tabs__g muted" aria-hidden="true">Інші марки</p>
+        {other.map((b) => <button class="tab num" role="tab" type="button" id={`tab-${b.id}`} aria-controls={`panel-${b.id}`} aria-selected="false" tabindex="-1">{b.name}</button>)}
+      </div>
+      <div class="panels">
+        {BRANDS.map((b, i) => (
+          <div class:list={["panel", i === 0 && "is-active"]} role="tabpanel" id={`panel-${b.id}`} aria-labelledby={`tab-${b.id}`} data-brand={b.id}>
+            <h3 class="panel__name">{b.name}</h3>
+            <dl class="panel__dl">
+              {b.software && <><dt class="muted">Діагностика</dt><dd class="num panel__sw">{b.software}</dd></>}
+              <dt class="muted">Гарантія</dt><dd>{b.warranty}</dd>
+            </dl>
+            <FutureLink note={NOTE}>СТО {b.name} у Львові</FutureLink>
+          </div>
+        ))}
+      </div>
+    </div>
+    <p class="brands__more muted">Також обслуговуємо: Mini, Hyundai, Ford, Mazda, Kia, Nissan, Mitsubishi, Honda.</p>
+  </div>
+</Section>
+<style>
+  :global(.brands) { padding: var(--s-9) 0; }
+  .brands__grid { display: grid; gap: var(--s-7); margin-top: var(--s-7); }
+  .tabs { display: none; }
+  :global(.js) .tabs { display: grid; gap: var(--s-1); align-content: start; }
+  .tabs__g { font-size: var(--fs-small); margin: var(--s-4) 0 var(--s-2); }
+  .tabs__g:first-child { margin-top: 0; }
+  .tab { all: unset; box-sizing: border-box; cursor: pointer; font-family: var(--font-display); font-size: 20px; padding: var(--s-2) 0; min-height: 44px; color: var(--color-on-band-muted); transition: color 200ms var(--ease-out); }
+  .tab--big { font-size: var(--fs-h3); }
+  .tab[aria-selected="true"] { color: var(--color-on-band); box-shadow: inset 3px 0 0 var(--color-brand); padding-left: var(--s-4); }
+  .tab:hover { color: var(--color-on-band); }
+  .tab:focus-visible { outline: 2px solid var(--color-on-band); outline-offset: 2px; }
+  .panel { display: grid; gap: var(--s-4); justify-items: start; padding-bottom: var(--s-6); }
+  :global(.js) .panel { display: none; }
+  :global(.js) .panel.is-active { display: grid; }
+  :global(.js) .panel__name { position: absolute !important; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+  .panel__dl { margin: 0; display: grid; gap: var(--s-1); }
+  .panel__dl dt { font-size: var(--fs-small); margin-top: var(--s-4); }
+  .panel__dl dd { margin: 0; max-width: 34ch; }
+  .panel__sw { font-size: var(--fs-big); line-height: 1.1; }
+  .brands__more { margin-top: var(--s-6); }
+  .panel.is-in { animation: panelIn 240ms var(--ease-out); }
+  @keyframes panelIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+  @media (max-width: 767px) { .panel.is-in { animation-name: panelIn4; } @keyframes panelIn4 { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: none; } } :global(.js) .tabs { grid-template-columns: 1fr 1fr; column-gap: var(--s-4); } .tabs__g { grid-column: 1 / -1; } }
+  @media (min-width: 1024px) {
+    :global(.brands) { padding: var(--s-10) 0; }
+    .brands__grid { grid-template-columns: repeat(12, 1fr); column-gap: var(--s-5); margin-top: var(--s-8); }
+    .tabs { grid-column: 1 / span 5; }
+    .tab--big { font-size: 40px; }
+    .panels { grid-column: 7 / span 6; min-height: 280px; }
+    .panel__dl dd { max-width: 40ch; }
+  }
+  @media (prefers-reduced-motion: reduce) { .panel.is-in { animation: none; } }
+</style>
+<script>
+  const tabs = [...document.querySelectorAll<HTMLElement>('#brands [role="tab"]')];
+  const panels = [...document.querySelectorAll<HTMLElement>("#brands .panel")];
+  function select(id: string, focus = false) {
+    tabs.forEach((t) => { const on = t.id === "tab-" + id; t.setAttribute("aria-selected", String(on)); t.tabIndex = on ? 0 : -1; if (on && focus) t.focus(); });
+    panels.forEach((p) => { const on = p.dataset.brand === id; p.classList.toggle("is-active", on); p.classList.remove("is-in"); if (on) { void p.offsetWidth; p.classList.add("is-in"); } });
+  }
+  tabs.forEach((t, i) => {
+    t.addEventListener("click", () => select(t.id.slice(4)));
+    t.addEventListener("keydown", (e) => {
+      const k = e.key; let n = -1;
+      if (k === "ArrowDown" || k === "ArrowRight") n = (i + 1) % tabs.length;
+      else if (k === "ArrowUp" || k === "ArrowLeft") n = (i - 1 + tabs.length) % tabs.length;
+      else if (k === "Home") n = 0; else if (k === "End") n = tabs.length - 1;
+      if (n >= 0) { e.preventDefault(); select(tabs[n].id.slice(4), true); }
+    });
+  });
+  document.querySelectorAll<HTMLElement>("[data-pick]").forEach((a) => a.addEventListener("click", () => select(a.dataset.pick!)));
+</script>

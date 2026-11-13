@@ -1,0 +1,48 @@
+---
+import Base from "../layouts/Base.astro";
+import Header from "../components/Header.astro";
+import Hero from "../components/Hero.astro";
+import Services from "../components/Services.astro";
+import Brands from "../components/Brands.astro";
+import Conditions from "../components/Conditions.astro";
+import Network from "../components/Network.astro";
+import Contacts from "../components/Contacts.astro";
+import Footer from "../components/Footer.astro";
+import MobileBar from "../components/MobileBar.astro";
+
+const title = "СТО у Львові для VAG — Avtomotiv Service, Хлібна, 4";
+const description = "СТО у Львові зі спеціалізацією у VAG: діагностика, ходова, гальма, двигун. Вул. Хлібна, 4, щодня 8:00–19:00. Запис: 0800 33 77 79 або Telegram.";
+const ld = {
+  "@context": "https://schema.org",
+  "@type": "AutoRepair",
+  name: "Avtomotiv Service, Львів",
+  telephone: "0800337779",
+  address: { "@type": "PostalAddress", streetAddress: "вул. Хлібна, 4", addressLocality: "Львів", addressCountry: "UA" },
+  openingHoursSpecification: [{ "@type": "OpeningHoursSpecification", dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"], opens: "08:00", closes: "19:00" }],
+  sameAs: ["https://www.instagram.com/avtomotivservice/", "https://www.facebook.com/avtomotivservice", "https://www.tiktok.com/@avtomotivservice", "https://www.youtube.com/@avtomotivservice5070"],
+  hasOfferCatalog: {
+    "@type": "OfferCatalog", name: "Послуги",
+    itemListElement: [
+      { "@type": "Offer", price: "700", priceCurrency: "UAH", itemOffered: { "@type": "Service", name: "Комплексна діагностика" } },
+      { "@type": "Offer", itemOffered: { "@type": "Service", name: "Ходова" } },
+      { "@type": "Offer", itemOffered: { "@type": "Service", name: "Гальмівна система" } },
+      { "@type": "Offer", itemOffered: { "@type": "Service", name: "Двигун і трансмісія" } },
+      { "@type": "Offer", itemOffered: { "@type": "Service", name: "Автоелектрик і кондиціонер" } },
+    ],
+  },
+};
+---
+<Base lang="uk" title={title} description={description}>
+  <Fragment slot="head">
+    <link rel="preload" href="/fonts/gidole-cyrillic-400.woff2" as="font" type="font/woff2" crossorigin />
+    <script type="application/ld+json" data-rec="SEO-R002" set:html={JSON.stringify(ld)} />
+  </Fragment>
+  <Header slot="header" />
+  <Hero />
+  <Services />
+  <Brands />
+  <Conditions />
+  <Network />
+  <Contacts />
+  <Fragment slot="footer"><Footer /><MobileBar /></Fragment>
+</Base>

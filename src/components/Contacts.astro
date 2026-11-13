@@ -1,0 +1,30 @@
+---
+import Section from "./Section.astro";
+import { PHONE_TEL, PHONE_TEXT, TG, SOCIALS } from "../data/site";
+---
+<Section id="contacts" rec="UX-R003" class="ct on-accent">
+  <div class="container">
+    <h2>Запис у львівську філію</h2>
+    <a class="ct__num num" href={PHONE_TEL} aria-label={`Подзвонити ${PHONE_TEXT}`}>{PHONE_TEXT}</a>
+    <div class="ct__row">
+      <a class="btn btn--outline" href={TG} target="_blank" rel="noopener noreferrer">Записатися в Telegram</a>
+      <address class="ct__addr">Вул. Хлібна, 4, Львів<br />Щодня з 8:00 до 19:00</address>
+      <ul class="ct__soc" aria-label="Соцмережі">
+        {SOCIALS.map((s) => <li><a class="link" href={s.url} target="_blank" rel="noopener noreferrer">{s.name}</a></li>)}
+      </ul>
+    </div>
+  </div>
+</Section>
+<style>
+  :global(.ct) { background: var(--color-accent); color: var(--color-on-accent); padding: var(--s-9) 0; }
+  .ct__num { display: block; font-size: clamp(40px, 11.2vw, 56px); line-height: 1; margin: var(--s-7) 0 var(--s-6); text-decoration: none; white-space: nowrap; }
+  .ct__row { display: grid; gap: var(--s-6); justify-items: start; }
+  .ct__addr { font-style: normal; font-size: var(--fs-lead); line-height: 1.4; }
+  .ct__soc { display: flex; flex-wrap: wrap; gap: var(--s-2) var(--s-5); }
+  .ct__soc a { display: inline-block; padding: var(--s-2) 0; }
+  @media (min-width: 1024px) {
+    :global(.ct) { padding: var(--s-11) 0 var(--s-10); }
+    .ct__num { font-size: clamp(96px, 11.6vw, 160px); margin: var(--s-8) 0 var(--s-8); }
+    .ct__row { grid-template-columns: auto 1fr auto; align-items: center; gap: var(--s-8); }
+  }
+</style>
