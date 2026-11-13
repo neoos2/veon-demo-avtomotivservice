@@ -3,7 +3,7 @@ import { NAV, PHONE_TEL, PHONE_TEXT, TG } from "../data/site";
 ---
 <header class="hdr on-dark" id="site-header" data-rec="UX-R004,UX-R005,UX-R013">
   <div class="hdr__in container">
-    <a class="hdr__logo" href="#top" aria-label="Avtomotiv Service, на початок сторінки"><img src="/logo-white.svg" width="200" height="34" alt="Avtomotiv Service" /></a>
+    <a class="hdr__logo" href="#top" aria-label="Avtomotiv Service, на початок сторінки"><img src={`${import.meta.env.BASE_URL.replace(/\/?$/, "/")}logo-white.svg`} width="200" height="34" alt="Avtomotiv Service" /></a>
     <span class="hdr__city">Львів</span>
     <nav class="hdr__nav" aria-label="Основна навігація">
       {NAV.map((n) => <a class="link" href={n.href} data-nav>{n.label}</a>)}

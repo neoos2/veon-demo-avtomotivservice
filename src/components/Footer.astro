@@ -4,7 +4,7 @@ import { PHONE_TEL, PHONE_TEXT, TG, SOCIALS, NOTE } from "../data/site";
 ---
 <footer class="ftr on-dark">
   <div class="container ftr__in">
-    <a class="ftr__logo" href="#top" aria-label="Avtomotiv Service, на початок сторінки"><img src="/logo-footer.svg" width="1299" height="182" alt="Avtomotiv Service" /></a>
+    <a class="ftr__logo" href="#top" aria-label="Avtomotiv Service, на початок сторінки"><img src={`${import.meta.env.BASE_URL.replace(/\/?$/, "/")}logo-footer.svg`} width="1299" height="182" alt="Avtomotiv Service" /></a>
     <div class="ftr__col">
       <a class="num ftr__tel" href={PHONE_TEL}>{PHONE_TEXT}</a>
       <a class="link" href={TG} target="_blank" rel="noopener noreferrer">Telegram-бот: запис та історія</a>

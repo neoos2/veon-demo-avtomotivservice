@@ -1,4 +1,5 @@
 ---
+import gidoleUrl from "../fonts/gidole-cyrillic-400.woff2?url";
 import Base from "../layouts/Base.astro";
 import Header from "../components/Header.astro";
 import Hero from "../components/Hero.astro";
@@ -34,7 +35,7 @@ const ld = {
 ---
 <Base lang="uk" title={title} description={description}>
   <Fragment slot="head">
-    <link rel="preload" href="/fonts/gidole-cyrillic-400.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href={gidoleUrl} as="font" type="font/woff2" crossorigin />
     <script type="application/ld+json" data-rec="SEO-R002" set:html={JSON.stringify(ld)} />
   </Fragment>
   <Header slot="header" />
